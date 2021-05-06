@@ -3,6 +3,16 @@ import Web3 from 'web3'
 import './App.css'
 import Navbar from './components/Navbar'
 import Meme from './abis/Meme.json'
+//import { Route, IndexRoute } from 'react-router';
+
+
+//export default (
+  //<Route path="/" component={App}>
+    //<IndexRoute component={Lastupload} />
+    //<Route path="./component/Lastupload" component={Lastupload} />
+  //</Route>
+//);
+
 
 
 const ipfsClient = require('ipfs-http-client')
@@ -58,7 +68,7 @@ class App extends Component  {
       this.setState({memeHash})
      }
      else {
-      window.alert('meme contract not deployed to the public network')
+      window.alert('upload contract not deployed to the public network')
      }
 
 
@@ -88,7 +98,7 @@ class App extends Component  {
     const fileupload = await ipfs.add(this.state.buffer)
     console.log(fileupload.path)
     await this.state.meme.methods.set(fileupload.path).send({from: this.state.account}).then(r =>{
-      console.log('data being stored in the blockchian')
+      console.log('data being stored in the blockchain')
       this.setState({memeHash:fileupload.path})
     })
 
@@ -102,31 +112,32 @@ render () {
   return (
     <div className="App">
       <Navbar account={this.state.account} />
-      <img className =" ml-auto mr-auto img-fluid" src={`https://ipfs.io/ipfs/${this.state.memeHash}`}  />
+      
       <br />
       <p></p>
-      <h1> IPFS Images Upload</h1>
+      <h1> Upload your Image</h1>
       <p></p>
     <form  onSubmit={this.handleSubmit}>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
-            <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Button</button>
+            <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
           </div>
           <div className="custom-file">
             <input type="file" className="custom-file-input" id="inputGroupFile03" 
             onChange={this.captureFile}
             aria-describedby="inputGroupFileAddon03" />
-            <label className="custom-file-label" htmlFor="inputGroupFile03">Choose file</label>
+            <label className="custom-file-label" htmlFor="inputGroupFile03">Choose image file</label>
           </div>
         </div>
 
 
     </form>
     </div>
+    
   );
 }
 
   
 }
-
 export default App;
+

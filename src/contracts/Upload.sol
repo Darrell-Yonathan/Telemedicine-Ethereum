@@ -1,17 +1,18 @@
+
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.25 <0.7.0;
 
 
-contract Meme{
-	string memeHash ;
+contract Upload{
+	string imgHash ;
 
 	//Write a function
-	function set(string memory _memeHash) public {
-		memeHash = _memeHash ;
+	function set(string memory _imgHash) public {
+		imgHash = _imgHash ;
 	}
 
 	function get() public view returns(string memory) {
-		return memeHash ;
+		return imgHash ;
 	}
 
 }

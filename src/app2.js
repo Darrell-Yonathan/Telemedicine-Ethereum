@@ -60,18 +60,18 @@ render () {
       <img className =" ml-auto mr-auto img-fluid" src="https://www.insidehighered.com/sites/default/server_files/media/iStock-892082986.jpg "  />
       <br />
       <p></p>
-      <h1> IPFS Images Upload</h1>
+      <h1> Upload Your Image</h1>
       <p></p>
     <form  onSubmit={this.onSubmit}>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
-            <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Button</button>
+            <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
           </div>
           <div className="custom-file">
             <input type="file" className="custom-file-input" id="inputGroupFile03" 
             onChange={this.captureFile}
             aria-describedby="inputGroupFileAddon03" />
-            <label className="custom-file-label" htmlFor="inputGroupFile03">Choose file</label>
+            <label className="custom-file-label" htmlFor="inputGroupFile03"></label>
           </div>
         </div>
 
