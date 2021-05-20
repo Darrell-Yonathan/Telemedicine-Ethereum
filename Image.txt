@@ -1,0 +1,27 @@
+<div className="content">
+        <div id="img1"><img className =" ml-auto mr-auto img-fluid" src={`plain.gif`} /> </div>
+        <div id="img2"><img className =" ml-auto mr-auto img-fluid" src={`https://ipfs.io/ipfs/${this.state.imgHash}`} /> </div>
+      </div>
+
+
+
+
+const showImg = () => {
+  if (
+    document.getElementById("img2")&&
+    document.getElementById("img1")
+  ) {
+  document.getElementById("img2").style.display ='block'
+  document.getElementById("img1").style.display ='none'
+}
+};
+
+const hideImg = () => {
+  if (
+    document.getElementById("img2")&&
+    document.getElementById("img1")
+  ) {
+    document.getElementById("img1").style.display ='block'
+    document.getElementById("img2").style.display ='none'
+}
+};

@@ -1,21 +1,21 @@
 const { assert } = require('chai');
 
-const Meme = artifacts.require('./Meme')
+const Upload = artifacts.require('./Upload')
 
 require('chai').use(require('chai-as-promised')).should()
 
 
-contract('Meme' ,([deployer , seller ,buyer]) =>{
-    let meme;
+contract('Upload' ,([deployer , seller ,buyer]) =>{
+    let img;
 
     before(async ()=>{
-        meme = await Meme.deployed();
+        img = await img.deployed();
 
     })
 
     describe('deployement', async() => {
         it('deploys successfully', async ()=>{
-            const address = meme.address;
+            const address = img.address;
             assert.notEqual(address , 0*0)
             assert.notEqual(address , '')
             assert.notEqual(address , null)
@@ -24,12 +24,12 @@ contract('Meme' ,([deployer , seller ,buyer]) =>{
         })
     })
     describe('storage', () => {
-        it('updates the meme Hash' , async()=>{
-            let memeHash;
-            memeHash= 'abc123'
-            await meme.set(memeHash)
-            const result = await meme.get();
-            assert.equal(result , memeHash , "the hashes are equal")
+        it('updates the img Hash' , async()=>{
+            let imgHash;
+            imgHash= 'abc123'
+            await img.set(imgHash)
+            const result = await img.get();
+            assert.equal(result , imgHash , "the hashes are equal")
         })
     })
     

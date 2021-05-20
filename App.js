@@ -22,10 +22,6 @@ const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https
 
 class App extends Component  {
 
-  hideButton() {
-    document.querySelector('#inputGroupFileAddon03').disabled = false;
-  }
-
   toggleImage(){
     document.querySelector('#gambar').classList.toggle('hidden');
   }
@@ -127,20 +123,22 @@ class App extends Component  {
       <form  onSubmit={this.handleSubmit}>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03" disabled>Upload</button>
+              <button className="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
             </div>
             <div className="custom-file">
-              <input type="file" className="custom-file-input" id="inputGroupFile03" onClick={() => this.hideButton()}
+              <input type="file" className="custom-file-input" id="inputGroupFile03" 
               onChange={this.captureFile}
-              aria-describedby="inputGroupFileAddon0" />
-              <label className="custom-file-label" htmlFor="inputGroupFile04">Choose image file</label>
+              aria-describedby="inputGroupFileAddon03" />
+              <label className="custom-file-label" htmlFor="inputGroupFile03">Choose image file</label>
             </div>
           </div>
-      </form>
-      <div className="container">
+
+        <div className="container">
         <button onClick={() => this.toggleImage()} className="w-100 mb-10">Show/Hide</button>
         </div>
       <img src={`https://ipfs.io/ipfs/${this.state.imgHash}`} id="gambar" className="hidden w-100" />
+      
+      </form>
       </div>
       
     );
