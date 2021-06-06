@@ -32,6 +32,10 @@
   display: none;
 }
 
+.c-100 {
+  text-align: center;
+}
+
 .w-100{
   width: 100%;
 }

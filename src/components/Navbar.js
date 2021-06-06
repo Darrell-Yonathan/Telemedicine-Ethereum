@@ -14,7 +14,7 @@ const Navbar = ({account}) => {
                     <a className="nav-link text-white" href="#!">Home <span className="sr-only">(current)</span></a>
                   </li>
                   <li className="nav-item  text-white">
-                    <a className="nav-link text-white" href="#!">Last Image Upload</a>
+                    <a className="nav-link text-white" href="#!">Test</a>
                   </li>
                   <li className="nav-item  dropdown">
                     <a className="nav-link text-white dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
