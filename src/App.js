@@ -23,7 +23,8 @@ class App extends Component  {
     this.state = {
       buffer:null,
       imgHash:'QmZWjCioYu3j7ShgBentwprJ6ttDmjnVyKPUGL4QfVnL8P',
-      account:''
+      account:'',
+      cid:''
     };
   }
 
@@ -53,36 +54,33 @@ class App extends Component  {
      
      const networkId = await web3.eth.net.getId() 
      const networkData = Upload.networks[networkId]
-
+     var load = document.getElementById('cid').value;
+    
+     console.log(this.state.cid)
      if(networkData)
      {
       //const abi = Upload.abi
       const abi2 = Upload2
+      console.log(load)
       //const img = new  web3.eth.Contract(abi,networkData.address)
       const img2 = new  web3.eth.Contract(abi2,"0xd5ff0262dce4feeb6e6325ccae689d14489c182f")
       //this.setState({img})
       this.setState({img2})
-
       //const imgHash = await img.methods.get().call()
-      await img2.methods.get('5').call({from:"0x3d400191029bff170ae3fbebb5c8c2269b664eb2"})
-      .then (res => {
-        
-        res = JSON.parse(JSON.stringify(res))
-        this.setState({imgHash:res[2],name:res[0]})
-        this.setState({imgHash:res[3],deskripsi:res[1]})
-        this.setState({imgHash:res[4],imgHash:res[2]})
-        console.log(res[0])
-        console.log(res[1])
-      })
-      //imgHash2 = JSON.stringify(imgHash2)
-      //this.setState({imgHash})
-     // this.setState({imgHash2})
-      //console.log(imgHash2)
+      // await img2.methods.get('5').call({from:"0x3d400191029bff170ae3fbebb5c8c2269b664eb2"})
+      // .then (res => {
+  
+      //   res = JSON.parse(JSON.stringify(res))
+      //   this.setState({imgHash:res[2],name:res[0]})
+      //   this.setState({imgHash:res[3],deskripsi:res[1]})
+      //   this.setState({imgHash:res[4],imgHashing:res[2]})
+      //   console.log(res[0])
+      //   console.log(res[1])
+      // })
      }
      else {
       window.alert('upload contract not deployed to the public network')
      }
-
   }
 
   captureFile = (e) =>{
@@ -99,12 +97,11 @@ class App extends Component  {
   }
 
 
-  //https://ipfs.io/ipfs/QmYbggFBJWPa8NpEc1wQneHdYFoLnqwqq49NyoCmBZKSFm
+
   handleSubmit = async (e)=>{
     var id = document.getElementById("fid").value;
     var nama = document.getElementById("fnama").value;
     var deskripsi = document.getElementById("fdeskripsi").value;
-
 
     var t0 = performance.now()
     //step1 is to 
@@ -119,12 +116,28 @@ class App extends Component  {
 
       var t1 = performance.now()
       console.log("Submit image time " + ((t1 - t0)/1000) + " seconds.")
-      
+      window.alert("Your data record has been submited to blockchain")
+      window.location.reload()
     })
-
-
-    //Step 2 is to store the fie onthe blockchian
   }
+
+
+handleGet = async (e) => {
+  e.preventDefault();
+  const web3=window.web3;
+  const abi2 = Upload2
+  const img2 = new web3.eth.Contract(abi2,"0xd5ff0262dce4feeb6e6325ccae689d14489c182f")
+  var load = document.getElementById('cid').value;
+  console.log(load)
+  await img2.methods.get(load).call({from:"0x3d400191029bff170ae3fbebb5c8c2269b664eb2"})
+  .then (res => {
+
+    res = JSON.parse(JSON.stringify(res))
+    this.setState({imgHash:res[2],name:res[0]})
+    this.setState({imgHash:res[3],deskripsi:res[1]})
+    this.setState({imgHash:res[4],imgHashing:res[2]})
+  })
+}
 
 
   render () {
@@ -160,14 +173,21 @@ class App extends Component  {
             </div>
           </div>
       </form>
+     
       <div className="container">
-        <button onClick={() => this.toggleImage()} className="w-100 mb-10">Show/Hide</button>
-        </div>
-        {this.state.name}<br/>
-        {this.state.deskripsi}<br/>
-        {this.state.imgHash}
-      <img src={`https://ipfs.io/ipfs/${this.state.imgHash}`} id="gambar" className="hidden w-100" />
+      <label for="cid">Cek ID Pasien</label><br/>
+      <input type="text" id="cid" name="cid" ></input><br/><br/>
+      <button type="submit" id="inputGroupFileAddon03" onClick={this.handleGet} >Cek ID</button><br/>
       </div>
+
+      {this.state.name}<br/>
+      {this.state.deskripsi}<br/>
+      
+      
+      <button onClick={() => this.toggleImage()} className="w-100 mb-10">Show/Hide</button>
+      <img src={`https://ipfs.io/ipfs/${this.state.imgHashing}`} id="gambar" className="hidden w-100" />
+      </div>
+      
       
     );
   }
