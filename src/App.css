@@ -24,8 +24,22 @@
   color: white;
 }
 
+
+
 .App-link {
   color: #61dafb;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+#upload {
+  height: 1000px;
+}
+
+#checkid {
+  height: 600px;
 }
 
 .hidden{
@@ -42,6 +56,14 @@
 
 .mb-10{
   margin-bottom: 10px;
+}
+
+div.kotak {
+  background-color: white;
+  width: 300px;
+  border: 2px solid;
+  padding: 5px;
+  margin: 20px;
 }
 
 @keyframes App-logo-spin {

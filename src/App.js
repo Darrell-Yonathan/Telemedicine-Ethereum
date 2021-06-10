@@ -99,7 +99,8 @@ class App extends Component  {
 
 
   handleSubmit = async (e)=>{
-    var id = document.getElementById("fid").value;
+    var random = Math.floor((Math.random() * 1000000000) + 1);
+    var id = random.toString();
     var nama = document.getElementById("fnama").value;
     var deskripsi = document.getElementById("fdeskripsi").value;
 
@@ -110,13 +111,13 @@ class App extends Component  {
     console.log(this.state.buffer)
     const fileupload = await ipfs.add(this.state.buffer)
     //console.log(fileupload.path)
-    await this.state.img2.methods.set(id,nama,deskripsi,fileupload.path).send({from: "0x3d400191029bff170ae3fbebb5c8c2269b664eb2"}).then(r =>{
+    await this.state.img2.methods.set(id,nama,deskripsi,fileupload.path).send({from: this.state.account}).then(r =>{
       console.log('data being stored in the blockchain')
       //this.setState({imgHash:fileupload.path}) 
 
       var t1 = performance.now()
       console.log("Submit image time " + ((t1 - t0)/1000) + " seconds.")
-      window.alert("Your data record has been submited to blockchain")
+      window.alert("Your data record has been submited to blockchain with id :" + id)
       window.location.reload()
     })
   }
@@ -129,32 +130,39 @@ handleGet = async (e) => {
   const img2 = new web3.eth.Contract(abi2,"0xd5ff0262dce4feeb6e6325ccae689d14489c182f")
   var load = document.getElementById('cid').value;
   console.log(load)
-  await img2.methods.get(load).call({from:"0x3d400191029bff170ae3fbebb5c8c2269b664eb2"})
-  .then (res => {
+  var t0 = performance.now()
+    await img2.methods.get(load).call({from:this.state.account})
+    .then (res => {
+  
+      res = JSON.parse(JSON.stringify(res))
+      this.setState({imgHash:res[2],name:res[0]})
+      this.setState({imgHash:res[3],deskripsi:res[1]})
+      this.setState({imgHash:res[4],imgHashing:res[2]})
+    })
+   
+    var t1 = performance.now()
+    console.log("Get data from id (" + load + ") time: " + ((t1 - t0)/1000) + " seconds.")
+    window.alert("Checking id :" + load)
+  }
+  
 
-    res = JSON.parse(JSON.stringify(res))
-    this.setState({imgHash:res[2],name:res[0]})
-    this.setState({imgHash:res[3],deskripsi:res[1]})
-    this.setState({imgHash:res[4],imgHashing:res[2]})
-  })
-}
 
 
   render () {
     return (
       
-      <div className="App">
+      <div className="App" id="upload">
         <Navbar account={this.state.account} />
         
         <br />
         <p></p>
-        <h1> Upload your Image</h1>
+        <h1> Upload your Telemedicine Data</h1>
         <p></p>
         
       <form  onSubmit={this.handleSubmit}>
 
-      <label for="fid">ID Pasien</label><br/>
-      <input type="text" id="fid" name="fid"></input><br/>
+      {/* <label for="fid">ID Pasien</label><br/> */}
+      {/* <input type="text" id="fid" name="fid"></input><br/> */}
       <label for="fpasien">Nama Pasien</label><br/>
       <input type="text" id="fnama" name="fnama"></input><br/>
       <label for="fdeskripsi">Deskripsi</label><br/>
@@ -173,21 +181,29 @@ handleGet = async (e) => {
             </div>
           </div>
       </form>
-     
-      <div className="container">
+      <br/><br/>
+      <div className="container" id="checkid">
+      <h1> Check your Data</h1>
       <label for="cid">Cek ID Pasien</label><br/>
       <input type="text" id="cid" name="cid" ></input><br/><br/>
-      <button type="submit" id="inputGroupFileAddon03" onClick={this.handleGet} >Cek ID</button><br/>
-      </div>
+      <button type="submit" id="inputGroupFileAddon03" onClick={this.handleGet} >Cek ID</button><br/><br/>
+      
 
-      {this.state.name}<br/>
-      {this.state.deskripsi}<br/>
-      
-      
-      <button onClick={() => this.toggleImage()} className="w-100 mb-10">Show/Hide</button>
-      <img src={`https://ipfs.io/ipfs/${this.state.imgHashing}`} id="gambar" className="hidden w-100" />
+      <label for="cname">Nama Pasien :  </label> <br/>
+      {/* <input type="textbox" name="displayname"></input><br/> */}
+      {this.state.name}<br/><br/>
+
+
+      <label for="cdesc">Deskripsi Penyakit :</label><br/>
+      {/* <input type="textbox" name="displaydeskripsi"></input><br/> */}
+      {this.state.deskripsi}<br/><br/>
+
+
+      <button onClick={() => this.toggleImage()} className="w-50 mb-5">Show/Hide Image</button><br/>
+      <img src={`https://ipfs.io/ipfs/${this.state.imgHashing}`} id="gambar" className="hidden w-100" /><br/><br/>
+      <a href="#upload">Back to Top</a>
       </div>
-      
+      </div>
       
     );
   }
