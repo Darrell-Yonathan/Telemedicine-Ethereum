@@ -2,8 +2,7 @@ import React , {Component} from 'react';
 import Web3 from 'web3'
 import './App.css'
 import Navbar from './components/Navbar'
-import Upload1 from './abis/Upload.json'
-import Upload2 from './abis/Upload2.json'
+import Upload from './abis/Upload.json'
 import home from './components/Home'
 import send from './components/Send'
 import getData from './components/getData'
@@ -45,38 +44,22 @@ class App extends Component  {
   }
   async loadBlockchainData() {
     const web3=window.web3 ;
-    //load accounts
+
      const accounts = await web3.eth.getAccounts()
      console.log(accounts[0])
      this.setState({account:accounts[0]}) 
      
      const networkId = await web3.eth.net.getId() 
-     const networkData = Upload1.networks[networkId]
+
     
      console.log(this.state.cid)
-     if(networkData)
-     {
-      //const abi = Upload.abi
-      const abi2 = Upload2
-      //const img = new  web3.eth.Contract(abi,networkData.address)
+
+      const abi2 = Upload
+
       const img2 = new  web3.eth.Contract(abi2,"0xd5ff0262dce4feeb6e6325ccae689d14489c182f")
-      //this.setState({img})
+
       this.setState({img2})
-      //const imgHash = await img.methods.get().call()
-      // await img2.methods.get('5').call({from:"0x3d400191029bff170ae3fbebb5c8c2269b664eb2"})
-      // .then (res => {
-  
-      //   res = JSON.parse(JSON.stringify(res))
-      //   this.setState({imgHash:res[2],name:res[0]})
-      //   this.setState({imgHash:res[3],deskripsi:res[1]})
-      //   this.setState({imgHash:res[4],imgHashing:res[2]})
-      //   console.log(res[0])
-      //   console.log(res[1])
-      // })
-     }
-     else {
-      window.alert('upload contract not deployed to the public network')
-     }
+
   }
 
 

@@ -13,6 +13,15 @@ module.exports = {
           "https://rinkeby.infura.io/v3/0de518516966419ab7abb3520bbc04ab"
         ),
       network_id: 4
+    },
+
+    rinkeby1: {
+      provider: () =>
+        new HDWalletProvider(
+          "arrange planet staff wine affair limb apple smooth flock soap female neglect",
+          "wss://rinkeby.infura.io/ws/v3/0de518516966419ab7abb3520bbc04ab"
+        ),
+      network_id: 4
     }
   },
   contracts_directory: './src/contracts/',
@@ -26,7 +35,8 @@ module.exports = {
       optimizer: {
         enabled: true,
         runs: 200
-      }
+      },
+      version: "0.6.12"
     }
   }
 }

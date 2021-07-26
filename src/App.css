@@ -13,6 +13,8 @@
   }
 }
 
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -177,6 +179,8 @@ div.kotak {
   opacity: 1;
   right: 0;
 }
+
+
 
 @keyframes App-logo-spin {
   from {
