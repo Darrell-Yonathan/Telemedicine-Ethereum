@@ -1,1 +1,0 @@
-<img className =" ml-auto mr-auto img-fluid" src={`https://ipfs.io/ipfs/${this.state.memeHash}`}  />
