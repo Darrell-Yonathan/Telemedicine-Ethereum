@@ -13,8 +13,6 @@
   }
 }
 
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -180,7 +178,29 @@ div.kotak {
   right: 0;
 }
 
+.radio-buttons .role-choice input {
+	margin-right: 0.5em;
+}
 
+.text-verified-role {
+	color: #04AA6D;
+}
+
+.text-wrong-role {
+	color: #FB250F;
+}
+
+.role-text-box {
+	margin-top: 1em;
+}
+
+.login-box {
+	margin-top: 2em;
+}
+
+.f-right {
+	float: right;
+}
 
 @keyframes App-logo-spin {
   from {

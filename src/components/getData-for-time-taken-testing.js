@@ -130,18 +130,46 @@ class getData extends Component  {
 		const abi3 = AccessRole
 		const role = new web3.eth.Contract(abi3, "0x3b0DdAAF635e1e596C1ff2028352E475243D718E")
 		const checked = this.state.checkedCount;
+		
+		const testOneNumber = 1;
+		const testTenNumber = 10;
+		const testNumber = 100;
 		if(checked == 0){
 			this.setState({ isDoctor: false });
 			console.log("Verifying your Role as Doctor ...")
-			console.time("rolecheck");
-			try {
-			await role.methods.checkDoctorRole().call({from:this.state.account})
-			console.log("Successful: You are Verified as Doctor.")
-			this.setState({ isDoctor: true });
-			} catch (e) {
-				console.log("Caught error: Invalid Role");
+			
+			
+			for(let k = 0; k < testNumber; k++){
+				console.log(k)
+				if(k == 0){
+					// console.time("totalRoleCheck");
+					console.time("rolecheck");
+					console.time("tenRoleCheck");
+					console.time("oneRoleCheck");
+				}
+				
+				// console.time("rolecheck");
+				try {
+				await role.methods.checkDoctorRole().call({from:this.state.account})
+				console.log("Successful: You are Verified as Doctor.")
+				this.setState({ isDoctor: true });
+				} catch (e) {
+					console.log("Caught error: Invalid Role");
+				}
+				// console.timeEnd("rolecheck")
+				if(k == testOneNumber - 1){
+					console.timeEnd("oneRoleCheck");
+				}
+				if(k == testTenNumber - 1){
+					console.timeEnd("tenRoleCheck");
+				}
+				if(k == testNumber - 1){
+					// console.timeEnd("totalRoleCheck");
+					console.timeEnd("rolecheck");
+				}
 			}
-			console.timeEnd("rolecheck")
+			
+			
 		}
 		const success = this.state.isDoctor;
 		if(!success){

@@ -1,6 +1,6 @@
 import React , {Fragment} from 'react'
 
-const Navbar = ({account}) => {
+const Navbar = ({account, verified}) => {
     return (
         <Fragment>
                     <nav className="navbar navbar-expand-lg navbar-light bg-info">
@@ -9,6 +9,7 @@ const Navbar = ({account}) => {
                 <span className="navbar-toggler-icon" />
               </button>
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
+			  { verified &&
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item  active">
                     <a className="nav-link text-white" href="send">Upload Image <span className="sr-only">(current)</span></a>
@@ -21,16 +22,23 @@ const Navbar = ({account}) => {
                       Dropdown
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a className="dropdown-item" href="#!">Action</a>
-                      <a className="dropdown-item" href="#!">Another action</a>
+					  <a className="dropdown-item" href="roleTest">Check Your Role</a>
                       <div className="dropdown-divider" />
                       <a className="dropdown-item" href="#!">Something else here</a>
                     </div>
                   </li>
                   <li className="nav-item ">
-                    <a className="nav-link text-white " href="#!" tabIndex={-1} aria-disabled="true">{account}</a>
+                    <a className="nav-link text-white " href="roleTest" tabIndex={-1} aria-disabled="true">{account}</a>
                   </li>
                 </ul>
+			  }
+			  { verified &&	
+				<ul className="navbar-nav f-right">
+					<li className="nav-item  active">
+						<a className="nav-link text-white" href="logout">Logout</a>
+					</li>
+				</ul>
+			  }
               </div>
             </nav>
 
